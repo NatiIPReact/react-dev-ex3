@@ -69,23 +69,29 @@ function EditDetails(props) {
     const [imageHelperText, setImageHelperText] = useState('');
     // Checks whether the username is ok. (If not, show an error message)
     const checkUserName = () => {
+        // Checks whether the username consist of letters, number, and special characters
         var regex = /[^a-zA-Z0-9!@#$%^&*()_+{}\[\]:;'"\\|,.<>?\/\-=`~ ]/;
+        // If the user name is missing, show an error message
         if (userName == "") {
             setUserNameHelperText("Username is missing!");
             return;
         }
+        // If the user name includes a non-user character, show an error message
         if (regex.test(userName)) {
             setUserNameHelperText("Invalid username!");
             return;
         }
+        // If the user name is too long, show an error message
         if (userName.length > 60) {
             setUserNameHelperText("Username can't me longer than 60 characters!");
             return;
         }
+        // If the user is trying to edit his username to "admin", show an error message (because that's the admin's username)
         if (userName === "admin") {
             setUserNameHelperText("This username is taken!");
             return;
         }
+        // Loop over all users to see whether this user name is taken or not
         for (let i = 0; i < users.length; i++) {
             if (users[i].userName === loggedUser.userName) continue;
             if (users[i].userName === userName) {
@@ -93,6 +99,7 @@ function EditDetails(props) {
                 return;
             }
         }
+        // If everything is fine, delete the error message
         setUserNameHelperText("");
     };
     // Checks wheter a character is a special character
