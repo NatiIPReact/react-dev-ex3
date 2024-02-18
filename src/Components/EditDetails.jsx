@@ -23,6 +23,8 @@ function EditDetails(props) {
         Swal.fire({ icon: "error", title: "Oops...", text: "Login Before Editing Your User!" }).then(props.moveToLogin);
         return (<></>);
     }
+    // Stores the users (Used to know whether the unique fields, such as email and username already exists or not)
+    const [users, setUsers] = useState(localStorage['Users'] == undefined ? [] : JSON.parse(localStorage['Users']));
     // Stores whether this is the admin editing a user or the user is editing his own details
     const [isAdmin, setIsAdmin] = useState(JSON.parse(sessionStorage['loggedUser']).userName === "admin");
     // Stores the username input
@@ -85,6 +87,7 @@ function EditDetails(props) {
             return;
         }
         for (let i = 0; i < users.length; i++) {
+            if (users[i].userName === loggedUser.userName) continue;
             if (users[i].userName === userName) {
                 setUserNameHelperText("This username is taken!");
                 return;
