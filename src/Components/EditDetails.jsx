@@ -127,6 +127,8 @@ function EditDetails(props) {
         // If the same as verifyPassword, delete the verify password error message
         if (password === verifyPassword) {
             setVerifyPasswordHelperText("");
+        } else {
+            setVerifyPasswordHelperText('Passwords must be equal!');
         }
     };
     // Checks whether the verify password is the same as password. (If not, show an error message)
